@@ -583,6 +583,83 @@ body.reduce *{animation-duration:.01ms!important;transition-duration:.01ms!impor
   .topbar .spacer{flex:1 1 0;min-width:0}
 }
 
+
+/* =========================================================
+   Refinement layer — small, deliberate touches.
+   Additive only: everything above still defines the system.
+   ========================================================= */
+::selection{background:rgba(232,89,12,.22);color:inherit}
+h1,h2,h3,h4{text-wrap:balance}
+.lead,.mod p,.ex-card p{text-wrap:pretty}
+.score-ring b,.mod-stats b,.fc-stats b,.pcard .big,.streak b,.ex-card .no,.mod-no{font-variant-numeric:tabular-nums}
+
+/* slim, quiet scrollbars */
+*{scrollbar-width:thin;scrollbar-color:#C3C9D2 transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#C3C9D2;border-radius:10px;border:3px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background-color:#98A2B3}
+.sidenav,.land-panel{scrollbar-color:#33435C transparent}
+
+/* buttons: tactile press + soft sheen on the primary action */
+.btn,.iconbtn,.chip,.mod-go{transition:background .15s,border-color .15s,box-shadow .2s,transform .12s}
+.btn:active,.iconbtn:active,.chip:active,.mod-go:active{transform:translateY(1px) scale(.985)}
+.btn:not(.ghost):not(.light):not(.navy):not(.hero-ghost){background-image:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0));box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 2px 6px -3px rgba(232,89,12,.45)}
+.btn:not(.ghost):not(.light):not(.navy):not(.hero-ghost):hover{box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 8px 16px -8px rgba(232,89,12,.6)}
+.login .btn{position:relative;overflow:hidden}
+.login .btn:after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);transition:left .7s ease}
+.login .btn:hover:after{left:130%}
+
+/* landing: blueprint texture, living photo, signature year */
+.land-panel{background:radial-gradient(120% 60% at 0% 0%,rgba(232,89,12,.10),transparent 55%),radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/22px 22px,var(--ink)}
+.land-main h1 .yr{display:inline-block;color:transparent;-webkit-text-stroke:1.5px #F5A273;letter-spacing:.01em}
+.bg.on{animation:kenburns 18s ease-out both}
+@keyframes kenburns{from{transform:scale(1.08)}to{transform:scale(1)}}
+.land-photo:after{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:repeating-linear-gradient(180deg,var(--accent) 0 14px,transparent 14px 28px);opacity:.9;z-index:3}
+.what li i{transition:border-color .2s,background .2s}
+.what li:hover i{border-color:rgba(245,162,115,.5);background:rgba(232,89,12,.12)}
+
+/* section chrome: glassy top bar with a hazard hairline */
+.topbar{background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px)}
+.topbar:after{content:'';position:absolute;left:0;bottom:-1px;width:120px;height:2px;background:linear-gradient(90deg,var(--accent),rgba(232,89,12,0))}
+.topbar .title > span[data-icon]{background:linear-gradient(145deg,var(--ink3),var(--ink));box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 4px 10px -4px rgba(15,27,45,.5)}
+
+/* dashboard: content settles in, one beat at a time */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#hub.active .dash > *{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+#hub.active .dash > *:nth-child(2){animation-delay:.06s}
+#hub.active .dash > *:nth-child(3){animation-delay:.12s}
+#hub.active .dash > *:nth-child(4){animation-delay:.18s}
+#hub.active .dash > *:nth-child(5){animation-delay:.24s}
+.score-ring{filter:drop-shadow(0 0 18px rgba(232,89,12,.22))}
+.plan li.done i{animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.25)}}
+
+/* module cards: accent rule draws in, number becomes a quiet watermark */
+.mod{overflow:hidden}
+.mod:before{content:'';position:absolute;left:0;top:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.mod:hover:before{transform:scaleX(1)}
+.mod-no{font-size:2.2em;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line2);letter-spacing:0;transition:-webkit-text-stroke-color .25s}
+.mod:hover .mod-no{-webkit-text-stroke-color:var(--accent)}
+.mod-ic{background:linear-gradient(145deg,var(--ink3),var(--ink));transition:transform .25s}
+.mod:hover .mod-ic{transform:rotate(-6deg) scale(1.05)}
+.mod-bar i{background:linear-gradient(90deg,var(--accent2),var(--accent) 60%,#F5A273)}
+
+/* exam & progress cards: same family of hover */
+.ex-card,.pcard{transition:box-shadow .2s,border-color .2s,transform .2s}
+.ex-card:hover{transform:translateY(-2px)}
+.ex-card:before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:var(--accent);opacity:0;transition:opacity .2s}
+.ex-card:hover:before{opacity:1}
+.ex-card .no{font-size:1.35em;font-weight:800;color:transparent;-webkit-text-stroke:1px var(--line2)}
+.ex-card:hover .no{-webkit-text-stroke-color:var(--accent)}
+.pagepanel > *,.ex-grid > *{animation:rise .45s cubic-bezier(.2,.7,.2,1) both}
+
+/* small things */
+.toast{border-left:3px solid var(--accent)}
+.modal{border-top:3px solid var(--accent)}
+.sn-nav button svg{transition:transform .2s}
+.sn-nav button:hover svg{transform:translateX(2px)}
+.sn-user .av{background:linear-gradient(145deg,#E8590C,#C94B08)}
+@media (max-width:900px){.land-photo:after{display:none}}
 </style>
 </head>
 <body>
@@ -594,7 +671,7 @@ body.reduce *{animation-duration:.01ms!important;transition-duration:.01ms!impor
     <div class="brand"><span id="logoLand"></span><div>GNC 2027 Companion<small>Digital companion to the book</small></div></div>
     <div class="land-main">
       <p class="eyebrow">For readers of the book</p>
-      <h1>NEBOSH National General Certificate Guide 2027</h1>
+      <h1>NEBOSH National General Certificate Guide <span class="yr">2027</span></h1>
       <p class="lead">Practise everything in the book online, then test yourself in the format of the real exam.</p>
       <ul class="what">
         <li><i data-icon="book"></i><span><b>1,200 practice questions</b> in a digital notebook</span></li>
